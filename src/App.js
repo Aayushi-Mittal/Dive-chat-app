@@ -1,13 +1,19 @@
-import './App.css';
-import Login from "./components/Login"
-import Register from "./components/Register"
-
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import FOF from "./pages/FOF";
 
 function App() {
   return (
     <div className="App">
-      <Register/>
-      <Login/>
+      <Router>
+        <Routes>
+          <Route path="/" exact element={<Home />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
+          <Route element={<FOF />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
