@@ -1,6 +1,7 @@
 import React from "react";
 // import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
@@ -8,30 +9,15 @@ import {
 } from "firebase/auth";
 import { auth } from "../config/firebase-config";
 
-// const provider = new GoogleAuthProvider();
-
-// function loginWithGoogle() {
-//   const auth = getAuth();
-//   signInWithPopup(auth, provider)
-//     .then((result) => {
-//     //   const credential = GoogleAuthProvider.credentialFromResult(result);
-//     //   const token = credential.accessToken;
-//     //   const user = result.user;
-//         console.log(result);
-//     })
-//     .catch((error) => {
-//     //   const errorCode = error.code;
-//     //   const errorMessage = error.message;
-//     //   const email = error.email;
-//     //   const credential = GoogleAuthProvider.credentialFromError(error);
-//       console.log(error);
-//     });
-// }
-
 const Login = () => {
+  let navigate = useNavigate();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [user, setUser] = useState({});
+
+  const redirectToDashboard = () => {
+    navigate("./Dashboard", { replace: true });
+  }
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -45,6 +31,7 @@ const Login = () => {
         loginPassword
       );
       console.log(user);
+      redirectToDashboard();
     } catch (error) {
       console.log(error.message);
     }
